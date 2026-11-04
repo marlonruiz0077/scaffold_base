@@ -1,6 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="100" fill="#2563eb"/>
-  <circle cx="256" cy="256" r="160" fill="#1e293b"/>
-  <path d="M256 140 L340 330 L280 330 L256 270 L232 330 L172 330 Z" fill="#38bdf8"/>
-  <circle cx="256" cy="230" r="28" fill="#ffffff"/>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+    <linearGradient id="bun" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="patty" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="185" fill="#ffffff" opacity="0.15"/>
+  <path d="M 126 210 C 126 120, 386 120, 386 210 Z" fill="url(#bun)"/>
+  <ellipse cx="210" cy="165" rx="8" ry="4" fill="#fef3c7" transform="rotate(-15 210 165)"/>
+  <ellipse cx="260" cy="150" rx="8" ry="4" fill="#fef3c7"/>
+  <ellipse cx="310" cy="170" rx="8" ry="4" fill="#fef3c7" transform="rotate(20 310 170)"/>
+  <ellipse cx="235" cy="185" rx="7" ry="3.5" fill="#fef3c7" transform="rotate(10 235 185)"/>
+  <ellipse cx="285" cy="190" rx="7" ry="3.5" fill="#fef3c7" transform="rotate(-10 285 190)"/>
+  <path d="M 116 220 Q 140 235 165 220 Q 190 235 215 220 Q 240 235 265 220 Q 290 235 315 220 Q 340 235 365 220 Q 390 235 400 220 L 396 235 Q 370 250 345 235 Q 320 250 295 235 Q 270 250 245 235 Q 220 250 195 235 Q 170 250 145 235 Q 125 245 116 220 Z" fill="#22c55e"/>
+  <rect x="130" y="240" width="252" height="18" rx="9" fill="#ef4444"/>
+  <polygon points="120,265 392,265 380,285 310,285 285,320 260,285 135,285" fill="#fbbf24"/>
+  <rect x="110" y="280" width="292" height="42" rx="21" fill="url(#patty)"/>
+  <path d="M 130 330 L 382 330 C 382 380, 130 380, 130 330 Z" fill="url(#bun)"/>
 </svg>

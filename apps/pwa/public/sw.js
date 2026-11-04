@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nextcollege-pwa-v1';
+const CACHE_NAME = 'hamburger-rapid-pwa-v1';
 const ASSETS_TO_CACHE = [
   '/app/',
   '/app/index.html',
