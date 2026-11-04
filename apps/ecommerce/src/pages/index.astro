@@ -1,6 +1,179 @@
 ---
 // apps/ecommerce/src/pages/index.astro
-const title = "Bienvenidos a NextCollege";
+const title = "Hamburger Rapid | Sabor Gourmet a la Máxima Velocidad";
+
+const burgers = [
+  {
+    id: 1,
+    name: "Rey de las Burgers",
+    category: "especiales",
+    categoryLabel: "Especialidades",
+    price: 14.99,
+    specialty_badge: "👑 Corona de Oro • Legendaria",
+    specialty_level: "Nivel Legendario",
+    badgeColor: "amber",
+    rating: 4.9,
+    prep_time: "12 min",
+    calories: "920 kcal",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80",
+    description: "Nuestra creación estelar. Doble carne Angus madurada 180g a la parrilla de roble, queso cheddar inglés añejado derretido, cebolla confitada al bourbon de Kentucky y crujiente panceta ahumada artesanal.",
+    ingredients: ["Doble Carne Angus 180g", "Cheddar Inglés Añejo", "Bacon Ahumado Crujiente", "Cebolla Confitada al Bourbon", "Pan Brioche con Mantequilla Clarificada"],
+    chefNote: "Recomendada al punto medio. La reducción de bourbon y el cheddar añejo de 12 meses crean un contraste umami insuperable."
+  },
+  {
+    id: 2,
+    name: "Burger Real Clásica",
+    category: "clasicas",
+    categoryLabel: "Clásicas de la Casa",
+    price: 10.99,
+    specialty_badge: "⭐ Clásica Premium • Signature",
+    specialty_level: "Nivel Signature",
+    badgeColor: "blue",
+    rating: 4.8,
+    prep_time: "8 min",
+    calories: "740 kcal",
+    image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&auto=format&fit=crop&q=80",
+    description: "La receta fundamental perfeccionada. Carne de res seleccionada asada sobre brasas vivas de quebracho, queso americano fundente, pepinillos dulces encurtidos en casa, tomate fresco y salsa imperial.",
+    ingredients: ["Carne Res Seleccionada 180g", "Queso Americano Fundente", "Pepinillos Agridulces de la Casa", "Tomate Maduro & Lechuga Romana", "Salsa Imperial Rapid"],
+    chefNote: "El balance perfecto entre acidez de los pepinillos y la jugosidad pura de la carne vacuna a fuego abierto."
+  },
+  {
+    id: 3,
+    name: "Burger Real Doble",
+    category: "dobles",
+    categoryLabel: "Dobles & Smash",
+    price: 13.50,
+    specialty_badge: "🔥 Doble Poder • Élite",
+    specialty_level: "Nivel Élite",
+    badgeColor: "red",
+    rating: 4.9,
+    prep_time: "10 min",
+    calories: "980 kcal",
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80",
+    description: "Doble satisfacción para carnívoros exigentes. Dos medallones de res corte fino (300g total), doble capa de queso Monterey Jack, doble tocino ahumado en madera de manzano y suave mayonesa trufada.",
+    ingredients: ["Doble Medallón 300g Total", "Doble Queso Monterey Jack", "Doble Bacon Ahumado", "Cebolla Morada Encurtida", "Mayonesa Trufada de Verano"],
+    chefNote: "El ahumado del tocino con madera de manzano aporta notas dulces que armonizan la intensidad del doble corte vacuno."
+  },
+  {
+    id: 4,
+    name: "Burger Doble Especial",
+    category: "especiales",
+    categoryLabel: "Especialidades",
+    price: 14.25,
+    specialty_badge: "🏆 Creación Exclusiva • Master",
+    specialty_level: "Nivel Master",
+    badgeColor: "purple",
+    rating: 4.9,
+    prep_time: "11 min",
+    calories: "960 kcal",
+    image: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=800&auto=format&fit=crop&q=80",
+    description: "Innovación y textura crujiente. Doble carne smash con costra caramelizada profunda, coronada con aros de cebolla crocantes rebozados en cerveza artesanal, relish de jalapeños dulces y salsa de cuatro quesos.",
+    ingredients: ["Doble Smash Caramelizado", "Aros de Cebolla a la Cerveza", "Relish de Jalapeño Agridulce", "Salsa Cremosa Cuatro Quesos", "Pan de Papa Tostado"],
+    chefNote: "El crujido de los aros de cebolla fritos al instante junto al queso fundido la convierten en la favorita de los expertos."
+  },
+  {
+    id: 5,
+    name: "Burger Trufa & Portobello",
+    category: "gourmet",
+    categoryLabel: "Gourmet Selection",
+    price: 15.50,
+    specialty_badge: "🍄 Gourmet Supreme • Black Label",
+    specialty_level: "Nivel Black Label",
+    badgeColor: "dark",
+    rating: 5.0,
+    prep_time: "13 min",
+    calories: "830 kcal",
+    image: "https://images.unsplash.com/photo-1582196016295-f8c8bd4b3e99?w=800&auto=format&fit=crop&q=80",
+    description: "Una experiencia de alta cocina en formato burger. Carne Angus certificada de pastoreo, láminas de setas Portobello glaseadas al tomillo silvestre, queso Gouda holandés añejo y alioli de trufa negra.",
+    ingredients: ["Carne Angus Pastoreo 200g", "Portobello Confitado al Tomillo", "Queso Gouda Holandés", "Alioli Artesanal de Trufa Negra", "Rúcula Selvática Fresca"],
+    chefNote: "Nivel Black Label: utilizamos carpaccio de trufa negra de verano importada para un aroma penetrante e inolvidable."
+  },
+  {
+    id: 6,
+    name: "Burger Smoked BBQ Bacon",
+    category: "especiales",
+    categoryLabel: "Ahumados al Carbón",
+    price: 12.75,
+    specialty_badge: "🪵 Ahumado Roble • Artesanal",
+    specialty_level: "Nivel Artesanal",
+    badgeColor: "amber",
+    rating: 4.8,
+    prep_time: "9 min",
+    calories: "860 kcal",
+    image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=800&auto=format&fit=crop&q=80",
+    description: "Medallón cocinado lentamente con humo de leña de mezquite, tocino grueso de corte rústico, queso Pepper Jack fundente, hebras de cebolla crispy dorada y barbacoa con café y miel de agave.",
+    ingredients: ["Carne Ahumada a la Leña", "Bacon Rústico Grueso", "Queso Pepper Jack con Especias", "Cebolla Crispy Dorada", "Salsa BBQ con Miel de Agave"],
+    chefNote: "La salsa BBQ se cocina durante 6 horas a fuego lento integrando café tostado oscuro y chile chipotle morita."
+  },
+  {
+    id: 7,
+    name: "Burger Crispy Royal Chicken",
+    category: "clasicas",
+    categoryLabel: "Pollo Crujiente",
+    price: 11.80,
+    specialty_badge: "🍗 Crunch Dorado • Superior",
+    specialty_level: "Nivel Superior",
+    badgeColor: "emerald",
+    rating: 4.7,
+    prep_time: "10 min",
+    calories: "780 kcal",
+    image: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=800&auto=format&fit=crop&q=80",
+    description: "Suprema de pechuga de granja marinada por 24 horas en suero de leche (buttermilk) con 11 hierbas provenzales, empanizado ultracrujiente con panko dorado, ensalada coleslaw fresca y emulsión honey mustard.",
+    ingredients: ["Pechuga en Buttermilk 24h", "Corteza Panko Crunch", "Coleslaw Morada Cítrica", "Emulsión Honey Mustard", "Pepinillos Dulces en Rodajas"],
+    chefNote: "El marinado prolongado rompe las fibras del pollo garantizando una jugosidad extrema por dentro y crocancia perfecta por fuera."
+  },
+  {
+    id: 8,
+    name: "Burger Spicy Chipotle Fire",
+    category: "especiales",
+    categoryLabel: "Picantes & Bravas",
+    price: 12.90,
+    specialty_badge: "🌶️ Fuego Bravo • Intenso",
+    specialty_level: "Nivel Intenso",
+    badgeColor: "red",
+    rating: 4.8,
+    prep_time: "9 min",
+    calories: "810 kcal",
+    image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=800&auto=format&fit=crop&q=80",
+    description: "Para los amantes del fuego y el sabor profundo. Carne Angus con sazón cajún ahumado, queso provolone fundido, rodaja gruesa de piña caramelizada a las brasas, chiles jalapeños y mayo chipotle picante.",
+    ingredients: ["Carne Angus Sazón Cajún", "Provolone Fundido", "Piña Asada Caramelizada", "Jalapeños Escabechados", "Mayonesa Brava de Chipotle"],
+    chefNote: "La piña asada suaviza el golpe del chipotle, logrando un balance agridulce picante altamente adictivo."
+  },
+  {
+    id: 9,
+    name: "Burger Guacamole & Queso Fundido",
+    category: "gourmet",
+    categoryLabel: "Fusiones Latinas",
+    price: 13.20,
+    specialty_badge: "🥑 Frescura Viva • Selección",
+    specialty_level: "Nivel Selección",
+    badgeColor: "emerald",
+    rating: 4.7,
+    prep_time: "10 min",
+    calories: "840 kcal",
+    image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&auto=format&fit=crop&q=80",
+    description: "Homenaje a la frescura tropical. Medallón a la parrilla coronado con abundante guacamole recién machacado de aguacates Hass, pico de gallo campesino, nachos de maíz azul crujientes y cascada de queso Oaxaca fundido.",
+    ingredients: ["Carne Res Parrillera", "Guacamole Rústico Hass", "Pico de Gallo Cítrico", "Totopos Maíz Azul Crujientes", "Queso Oaxaca Fundente"],
+    chefNote: "El guacamole se prepara al momento con lima fresca y sal marina en grano, sin conservantes."
+  },
+  {
+    id: 10,
+    name: "Burger Smash Monster Cuádruple",
+    category: "dobles",
+    categoryLabel: "Mega Smash",
+    price: 16.90,
+    specialty_badge: "⚡ Monster Legend • Colosal",
+    specialty_level: "Nivel Colosal",
+    badgeColor: "purple",
+    rating: 4.9,
+    prep_time: "14 min",
+    calories: "1180 kcal",
+    image: "https://images.unsplash.com/photo-1583032015879-166c42959885?w=800&auto=format&fit=crop&q=80",
+    description: "Nuestra creación más colosal. Cuatro medallones smash de 100g con costra de reacción Maillard extrema, cuatro pisos de queso cheddar derretido entre cada capa, pepinillos en juliana y salsa secreta Rapid XL.",
+    ingredients: ["4 Medallones Smash (400g Total)", "4 Capas Queso Cheddar Fundido", "Pepinillos en Juliana", "Cebolla Picada Fina", "Salsa Secreta Rapid XL"],
+    chefNote: "Cuatro capas de costra caramelizada multiplican por cuatro la concentración de sabor cárnico. Para auténticos fanáticos del smash."
+  }
+];
 ---
 
 <!DOCTYPE html>
@@ -11,124 +184,1312 @@ const title = "Bienvenidos a NextCollege";
   <title>{title}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cabinet+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090d16;
-      --card: #131b2e;
-      --border: #1e293b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #2563eb;
+      --bg-main: #fbf9f6;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f5f0ea;
+      --border-subtle: #ebdcd0;
+      --border-card: #f0e6dc;
+      --primary: #c2410c;
+      --primary-hover: #9a3412;
+      --accent-gold: #b45309;
+      --gold-subtle: #fef3c7;
+      --text-main: #1c1917;
+      --text-muted: #645e57;
+      --text-soft: #8c827a;
+      --shadow-sm: 0 2px 6px rgba(41, 37, 36, 0.04);
+      --shadow-card: 0 10px 25px -4px rgba(41, 37, 36, 0.06), 0 4px 10px -2px rgba(41, 37, 36, 0.03);
+      --shadow-hover: 0 20px 35px -5px rgba(194, 65, 12, 0.12), 0 8px 16px -3px rgba(41, 37, 36, 0.04);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Top Announcement Bar */
+    .promo-bar {
+      background: linear-gradient(90deg, #78350f, #9a3412, #c2410c);
+      color: #fffbeb;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.02em;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+    .promo-bar a {
+      color: #fef08a;
+      text-decoration: underline;
+      font-weight: 700;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 14px 24px;
+    }
+    .navbar-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #fef3c7, #fed7aa);
+      border: 1px solid #fbd38d;
+      border-radius: 12px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-      text-align: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 10px rgba(180, 83, 9, 0.1);
     }
-    .badge {
+    .brand-text h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #1c1917;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .brand-text span {
+      color: var(--primary);
+    }
+    .brand-text small {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-admin-link {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: rgba(37, 99, 235, 0.1);
-      border: 1px solid rgba(37, 99, 235, 0.3);
-      color: #38bdf8;
-      padding: 0.4rem 1rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
+      gap: 6px;
+      transition: all 0.2s;
     }
-    h1 {
+    .btn-admin-link:hover {
+      background: #ebdcd0;
+    }
+    .btn-cta-pwa {
+      background: linear-gradient(135deg, #ea580c, #c2410c);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(194, 65, 12, 0.25);
+      transition: all 0.2s;
+    }
+    .btn-cta-pwa:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(194, 65, 12, 0.35);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 60px 24px 40px;
+      background: radial-gradient(circle at 80% 20%, #fef3c7 0%, #faf5ef 40%, #fbf9f6 80%);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .hero-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid #fbd38d;
+      color: #92400e;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+    }
+    .hero-title {
       font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
-      background: linear-gradient(135deg, #ffffff 40%, #94a3b8);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: #1c1917;
+      margin-bottom: 20px;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #c2410c, #ea580c);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    p {
+    .hero-desc {
+      font-size: 1.15rem;
       color: var(--text-muted);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
       line-height: 1.6;
+      max-width: 580px;
+      margin-bottom: 32px;
     }
-    .nav-cards {
+
+    .hero-buttons {
       display: flex;
-      gap: 1.25rem;
+      gap: 14px;
       flex-wrap: wrap;
-      justify-content: center;
-      max-width: 700px;
+      margin-bottom: 40px;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 1.25rem 1.75rem;
-      border-radius: 1rem;
+    .btn-primary-hero {
+      background: #c2410c;
+      color: white;
       text-decoration: none;
-      color: var(--text);
-      display: flex;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-      font-weight: 600;
-      font-size: 0.95rem;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(194, 65, 12, 0.3);
       transition: all 0.2s;
     }
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    .btn-primary-hero:hover {
+      background: #9a3412;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(194, 65, 12, 0.4);
     }
-    footer {
-      margin-top: 4rem;
-      font-size: 0.85rem;
+    .btn-secondary-hero {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+    .btn-secondary-hero:hover {
+      background: #fbf9f6;
+      border-color: #d6c3b5;
+    }
+
+    .hero-badges-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .metric-box {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .metric-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #9a3412;
+    }
+    .metric-lbl {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Hero Featured Burger Showcase */
+    .hero-showcase {
+      position: relative;
+    }
+    .hero-card-featured {
+      background: #ffffff;
+      border: 1px solid #f0e6dc;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 20px 40px -10px rgba(120, 53, 15, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-burger-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+      margin-bottom: 18px;
+    }
+    .featured-badge-float {
+      position: absolute;
+      top: 36px;
+      left: 36px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid #fbd38d;
+      color: #92400e;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .hero-featured-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .hero-featured-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1c1917;
+    }
+    .hero-featured-sub {
       color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    .hero-featured-price {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: #c2410c;
+    }
+
+    /* Catalog Section */
+    .catalog-section {
+      max-width: 1240px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 36px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #b45309;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #1c1917;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .tab-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+    .tab-btn.active {
+      background: #1c1917;
+      color: #ffffff;
+      border-color: #1c1917;
+      box-shadow: 0 4px 12px rgba(28, 25, 23, 0.2);
+    }
+
+    /* Burgers Grid (10 Variants) */
+    .burgers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 28px;
+    }
+
+    .burger-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .burger-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: #fbd38d;
+    }
+
+    .card-img-wrapper {
+      position: relative;
+      height: 230px;
+      overflow: hidden;
+      background: #f5ece2;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .burger-card:hover .card-img {
+      transform: scale(1.06);
+    }
+
+    .specialty-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(6px);
+    }
+    .badge-amber {
+      background: rgba(254, 243, 199, 0.95);
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+    .badge-blue {
+      background: rgba(239, 246, 255, 0.95);
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+    .badge-red {
+      background: rgba(254, 242, 242, 0.95);
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .badge-purple {
+      background: rgba(250, 245, 255, 0.95);
+      color: #6b21a8;
+      border: 1px solid #e9d5ff;
+    }
+    .badge-emerald {
+      background: rgba(236, 253, 245, 0.95);
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    .badge-dark {
+      background: rgba(28, 25, 23, 0.92);
+      color: #fef08a;
+      border: 1px solid #78350f;
+    }
+
+    .rating-pill {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #e5e7eb;
+      padding: 4px 9px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1c1917;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .burger-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #1c1917;
+      line-height: 1.25;
+    }
+    .burger-price {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #c2410c;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
+    .burger-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta-chips {
+      display: flex;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .meta-chip {
+      background: var(--bg-subtle);
+      padding: 4px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-card);
+    }
+    .btn-detail {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      color: #1c1917;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-detail:hover {
+      background: var(--bg-subtle);
+      border-color: #d6c3b5;
+    }
+    .btn-order-pwa {
+      background: #c2410c;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 10px rgba(194, 65, 12, 0.2);
+      transition: all 0.2s;
+    }
+    .btn-order-pwa:hover {
+      background: #9a3412;
+    }
+
+    /* Modal Styles */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(28, 25, 23, 0.6);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.active {
+      display: flex;
+    }
+    .modal-dialog {
+      background: #ffffff;
+      border-radius: 24px;
+      max-width: 620px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-card);
+      position: relative;
+      animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalSlideUp {
+      from { transform: translateY(20px) scale(0.97); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 10;
+      color: #64748b;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .modal-close-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .modal-image {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .modal-content {
+      padding: 28px;
+    }
+    .modal-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .modal-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .modal-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #1c1917;
+    }
+    .modal-price {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #c2410c;
+    }
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .modal-subtitle {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1c1917;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ingredient-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .ingredient-item {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #44403c;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chef-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 24px;
+    }
+    .chef-box strong {
+      display: block;
+      color: #92400e;
+      font-size: 0.84rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .chef-box p {
+      color: #78350f;
+      font-size: 0.86rem;
+      margin: 0;
+      line-height: 1.45;
+    }
+    .modal-cta-row {
+      display: flex;
+      gap: 12px;
+    }
+    .modal-btn-order {
+      flex: 1;
+      background: #c2410c;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(194, 65, 12, 0.3);
+      transition: all 0.2s;
+    }
+    .modal-btn-order:hover {
+      background: #9a3412;
+    }
+
+    /* Rapid Promise Section */
+    .features-section {
+      background: #ffffff;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 70px 24px;
+      margin-top: 80px;
+    }
+    .features-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .feature-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #ffedd5;
+      color: #c2410c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #1c1917;
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Hub Links Section */
+    .hub-section {
+      max-width: 1240px;
+      margin: 70px auto;
+      padding: 0 24px;
+    }
+    .hub-banner {
+      background: linear-gradient(135deg, #1c1917, #292524);
+      color: #ffffff;
+      border-radius: 28px;
+      padding: 48px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+    }
+    .hub-info h3 {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .hub-info p {
+      color: #d6d3d1;
+      font-size: 1.05rem;
+      max-width: 580px;
+    }
+    .hub-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-hub-pwa {
+      background: #c2410c;
+      color: white;
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-hub-pwa:hover {
+      background: #ea580c;
+    }
+    .btn-hub-admin {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-hub-admin:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 24px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-soft);
+    }
+    footer a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 992px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      .hero-desc {
+        margin: 0 auto 32px;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hub-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .burgers-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-badges-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      .ingredient-list {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="badge">🚀 Scaffold Base &bull; MasterClass CI/CD</div>
-  <h1>Bienvenidos a NextCollege</h1>
-  <p>
-    Plataforma base lista para desarrollo acelerado con Inteligencia Artificial y Entrega Continua en Dokploy.
-  </p>
 
-  <div class="nav-cards">
-    <a href="/app" class="card">
-      <span style="font-size: 1.5rem;">📱</span>
-      <div style="text-align: left;">
-        <div>Ver PWA Mobile</div>
-        <small style="color: var(--text-muted); font-size: 0.75rem;">/app</small>
-      </div>
-    </a>
-    <a href="/admin" class="card">
-      <span style="font-size: 1.5rem;">⚙️</span>
-      <div style="text-align: left;">
-        <div>Panel Administrativo</div>
-        <small style="color: var(--text-muted); font-size: 0.75rem;">/admin</small>
-      </div>
-    </a>
-    <a href="/api/health" class="card">
-      <span style="font-size: 1.5rem;">🩺</span>
-      <div style="text-align: left;">
-        <div>Health Check API</div>
-        <small style="color: var(--text-muted); font-size: 0.75rem;">/api/health</small>
-      </div>
-    </a>
+  <!-- Top Announcement -->
+  <div class="promo-bar">
+    <span>🔥 <strong>Hamburger Rapid</strong>: Primera versión comercial lista para pedidos.</span>
+    <span>•</span>
+    <span>Simula tu compra instantánea en la <a href="/app">PWA Mobile</a></span>
   </div>
 
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="brand">
+        <div class="brand-icon">🍔</div>
+        <div class="brand-text">
+          <h1>Hamburger <span>Rapid</span></h1>
+          <small>Gourmet Fast-Food</small>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#catalogo">Catálogo Destacado</a>
+        <a href="#promesa">Calidad Gourmet</a>
+        <a href="#plataforma">Ecosistema</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="/admin" class="btn-admin-link">
+          <span>⚙️</span> Panel Admin
+        </a>
+        <a href="/app" class="btn-cta-pwa">
+          <span>📱</span> PWA Mobile
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div>
+        <div class="hero-pill">
+          <span>👑</span> Edición Especial de Apertura • Sabor Artesanal
+        </div>
+        <h2 class="hero-title">
+          El Arte de la Hamburguesa Gourmet a <span class="highlight">Máxima Velocidad</span>
+        </h2>
+        <p class="hero-desc">
+          Descubre nuestra selección de 10 variantes magistrales. Desde el legendario <strong>"Rey de las Burgers"</strong> hasta nuestras icónicas <strong>"Burger Real Clásica"</strong>, <strong>"Burger Real Doble"</strong> y <strong>"Burger Doble Especial"</strong>, forjadas con carne 100% Angus madurada y pan brioche horneado al amanecer.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#catalogo" class="btn-primary-hero">
+            <span>🍔</span> Explorar 10 Variantes
+          </a>
+          <a href="/app" class="btn-secondary-hero">
+            <span>📱</span> Simular Pedido en PWA
+          </a>
+        </div>
+
+        <div class="hero-badges-row">
+          <div class="metric-box">
+            <div class="metric-val">100%</div>
+            <div class="metric-lbl">Carne Angus</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">&lt; 20m</div>
+            <div class="metric-lbl">Tiempo Entrega</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">4.9 ★</div>
+            <div class="metric-lbl">Satisfacción</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">10</div>
+            <div class="metric-lbl">Variantes Top</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Showcase Card -->
+      <div class="hero-showcase">
+        <div class="hero-card-featured">
+          <span class="featured-badge-float">👑 La Creación Estrella</span>
+          <img 
+            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80" 
+            alt="Rey de las Burgers" 
+            class="hero-burger-img"
+          />
+          <div class="hero-featured-info">
+            <div>
+              <div class="hero-featured-name">Rey de las Burgers</div>
+              <div class="hero-featured-sub">Doble Angus 180g • Bourbon & Bacon</div>
+            </div>
+            <div class="hero-featured-price">$14.99</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Section -->
+  <section class="catalog-section" id="catalogo">
+    <div class="section-header">
+      <div class="section-tag">Colección Magistral</div>
+      <h2 class="section-title">Nuestras 10 Variantes Destacadas</h2>
+      <p class="section-desc">
+        Hamburguesas clásicas equilibradas y creaciones especiales de autor diseñadas por maestros parrilleros.
+      </p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <button class="tab-btn active" data-filter="all">Todas (10)</button>
+      <button class="tab-btn" data-filter="especiales">Especiales del Chef</button>
+      <button class="tab-btn" data-filter="clasicas">Clásicas & Pollo</button>
+      <button class="tab-btn" data-filter="dobles">Dobles & Smash</button>
+      <button class="tab-btn" data-filter="gourmet">Gourmet Selection</button>
+    </div>
+
+    <!-- 10 Burgers Grid -->
+    <div class="burgers-grid" id="burgersGrid">
+      {burgers.map((burger) => (
+        <article class="burger-card" data-category={burger.category}>
+          <div class="card-img-wrapper">
+            <img 
+              src={burger.image} 
+              alt={burger.name} 
+              class="card-img" 
+              loading="lazy"
+            />
+            <span class={`specialty-badge badge-${burger.badgeColor}`}>
+              {burger.specialty_badge}
+            </span>
+            <div class="rating-pill">
+              <span>⭐</span> {burger.rating}
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3 class="burger-name">{burger.name}</h3>
+              <div class="burger-price">${burger.price.toFixed(2)}</div>
+            </div>
+
+            <p class="burger-desc">{burger.description}</p>
+
+            <div class="card-meta-chips">
+              <span class="meta-chip">⏱️ {burger.prep_time}</span>
+              <span class="meta-chip">🔥 {burger.calories}</span>
+              <span class="meta-chip">🏷️ {burger.categoryLabel}</span>
+            </div>
+
+            <div class="card-actions">
+              <button 
+                class="btn-detail" 
+                data-id={burger.id}
+                data-name={burger.name}
+                data-price={burger.price}
+                data-badge={burger.specialty_badge}
+                data-badge-color={burger.badgeColor}
+                data-image={burger.image}
+                data-description={burger.description}
+                data-ingredients={JSON.stringify(burger.ingredients)}
+                data-chefnote={burger.chefNote}
+                data-preptime={burger.prep_time}
+                data-calories={burger.calories}
+              >
+                <span>🔍</span> Ver Detalles
+              </button>
+              <a href="/app" class="btn-order-pwa">
+                <span>🛒</span> Pedir en PWA
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Rapid Quality Promise -->
+  <section class="features-section" id="promesa">
+    <div class="features-container">
+      <div class="section-header" style="margin-bottom: 20px;">
+        <div class="section-tag">Estándar de Excelencia</div>
+        <h2 class="section-title">El Secreto de Hamburger Rapid</h2>
+        <p class="section-desc">Combinamos técnica culinaria artesanal con ingeniería de entrega inmediata.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🥩</div>
+          <h4 class="feature-title">Carne Angus Madurada</h4>
+          <p class="feature-desc">Molida fresca a diario con la proporción exacta 80/20 para un bocado extra jugoso y tierno.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🍞</div>
+          <h4 class="feature-title">Pan Brioche Dorado</h4>
+          <p class="feature-desc">Horneado artesanal con mantequilla clarificada francesa para mantener su suavidad sin desmoronarse.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h4 class="feature-title">Smash a 300°C</h4>
+          <p class="feature-desc">Caramelización inmediata en planchas de cromo duro que sellan los jugos naturales con costra crujiente.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛵</div>
+          <h4 class="feature-title">Caja Térmica Ventilada</h4>
+          <p class="feature-desc">Empaques sustentables diseñados para evitar la condensación y garantizar textura crujiente a tu mesa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Hub Call To Action -->
+  <section class="hub-section" id="plataforma">
+    <div class="hub-banner">
+      <div class="hub-info">
+        <h3>Ecosistema Hamburger Rapid</h3>
+        <p>
+          Disfruta de la experiencia integrada: Ordena en nuestra Progressive Web App móvil o gestiona ventas, métricas de clientes e inventario en el panel administrativo.
+        </p>
+      </div>
+      <div class="hub-actions">
+        <a href="/app" class="btn-hub-pwa">
+          <span>📱</span> Abrir PWA Mobile
+        </a>
+        <a href="/admin" class="btn-hub-admin">
+          <span>⚙️</span> Panel de Control Admin
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Burger Detail Modal -->
+  <div class="modal-backdrop" id="burgerModal">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+      <img src="" alt="" class="modal-image" id="modalImage" />
+      <div class="modal-content">
+        <span class="modal-badge" id="modalBadge"></span>
+        <div class="modal-title-row">
+          <h3 class="modal-title" id="modalTitle"></h3>
+          <div class="modal-price" id="modalPrice"></div>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+
+        <div class="modal-subtitle">🌿 Ingredientes Seleccionados</div>
+        <ul class="ingredient-list" id="modalIngredients"></ul>
+
+        <div class="chef-box">
+          <strong>👨‍🍳 Nota del Chef Parrillero:</strong>
+          <p id="modalChefNote"></p>
+        </div>
+
+        <div class="modal-cta-row">
+          <a href="/app" class="modal-btn-order">
+            <span>📲</span> Proceder con el Pedido en PWA
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
-    NextCollege Scaffold &bull; Astro + React + Node.js + MySQL + Dokploy
+    <p>
+      © 2026 <strong>Hamburger Rapid</strong> &bull; Sabor Gourmet a la Máxima Velocidad.
+    </p>
+    <p style="margin-top: 8px;">
+      Plataforma Comercial &bull; <a href="/app">PWA Mobile</a> &bull; <a href="/admin">Dashboard Administrativo</a> &bull; <a href="/api/health">Estado API</a>
+    </p>
   </footer>
+
+  <!-- Interactive JavaScript for Modals & Filtering -->
+  <script is:inline>
+    // Category Filtering
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const burgerCards = document.querySelectorAll('.burger-card');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        burgerCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Detail Modal Handling
+    const modal = document.getElementById('burgerModal');
+    const closeBtn = document.getElementById('modalCloseBtn');
+    const detailBtns = document.querySelectorAll('.btn-detail');
+
+    detailBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.getAttribute('data-name');
+        const price = btn.getAttribute('data-price');
+        const badge = btn.getAttribute('data-badge');
+        const badgeColor = btn.getAttribute('data-badge-color');
+        const image = btn.getAttribute('data-image');
+        const description = btn.getAttribute('data-description');
+        const chefnote = btn.getAttribute('data-chefnote');
+        let ingredients = [];
+        try {
+          ingredients = JSON.parse(btn.getAttribute('data-ingredients') || '[]');
+        } catch (e) {
+          ingredients = [];
+        }
+
+        document.getElementById('modalTitle').textContent = name;
+        document.getElementById('modalPrice').textContent = `$${parseFloat(price).toFixed(2)}`;
+        document.getElementById('modalImage').src = image;
+        document.getElementById('modalImage').alt = name;
+        document.getElementById('modalDesc').textContent = description;
+        document.getElementById('modalChefNote').textContent = chefnote;
+
+        const badgeEl = document.getElementById('modalBadge');
+        badgeEl.textContent = badge;
+        badgeEl.className = `modal-badge badge-${badgeColor}`;
+
+        const listEl = document.getElementById('modalIngredients');
+        listEl.innerHTML = '';
+        ingredients.forEach(ing => {
+          const li = document.createElement('li');
+          li.className = 'ingredient-item';
+          li.innerHTML = `<span>✓</span> ${ing}`;
+          listEl.appendChild(li);
+        });
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  </script>
 </body>
 </html>

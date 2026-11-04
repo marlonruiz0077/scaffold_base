@@ -1,24 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const dns = require('dns').promises;
-const os = require('os');
-const net = require('net');
 
-// Health Check Endpoint (For Dokploy Health Checks)
+// Health Check Endpoint
 router.get('/health', (req, res) => {
   const dbStatus = db.getDbStatus();
   res.json({
     status: 'healthy',
+    brand: 'Hamburger Rapid',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     version: '1.0.0',
-    platform: 'Dokploy CI/CD Live Demo',
+    platform: 'Hamburger Rapid Commercial Platform',
     database: dbStatus
   });
 });
 
-// List products
+// List products (10 featured burgers)
 router.get('/products', async (req, res) => {
   try {
     const products = await db.getProducts();
@@ -35,12 +33,24 @@ router.get('/products', async (req, res) => {
 // Add new product
 router.post('/products', async (req, res) => {
   try {
-    const { name, category, price, stock, image, description } = req.body;
+    const { name, category, price, stock, specialty_badge, specialty_level, image, description, ingredients, calories, prep_time } = req.body;
     if (!name || price === undefined) {
       return res.status(400).json({ success: false, error: 'Nombre y precio son requeridos.' });
     }
-    const product = await db.addProduct({ name, category, price, stock, image, description });
-    res.status(201).json({ success: true, message: 'Producto creado exitosamente', data: product });
+    const product = await db.addProduct({
+      name,
+      category,
+      price,
+      stock,
+      specialty_badge,
+      specialty_level,
+      image,
+      description,
+      ingredients,
+      calories,
+      prep_time
+    });
+    res.status(201).json({ success: true, message: 'Hamburguesa creada exitosamente', data: product });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -51,7 +61,51 @@ router.delete('/products/:id', async (req, res) => {
   try {
     const { id } = req.params;
     await db.deleteProduct(id);
-    res.json({ success: true, message: `Producto ${id} eliminado.` });
+    res.json({ success: true, message: `Hamburguesa ${id} eliminada.` });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Consumer Metrics Endpoint
+router.get('/metrics/consumers', (req, res) => {
+  try {
+    const metrics = db.getConsumersMetrics();
+    res.json({
+      success: true,
+      data: metrics
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Orders Endpoints
+router.get('/orders', (req, res) => {
+  try {
+    const orders = db.getOrders();
+    res.json({
+      success: true,
+      count: orders.length,
+      data: orders
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.post('/orders', (req, res) => {
+  try {
+    const { customerName, items, total, address } = req.body;
+    if (!items || items.length === 0) {
+      return res.status(400).json({ success: false, error: 'La orden debe contener al menos una hamburguesa.' });
+    }
+    const order = db.createOrder({ customerName, items, total, address });
+    res.status(201).json({
+      success: true,
+      message: '¡Orden de compra simulada exitosamente!',
+      data: order
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -61,74 +115,10 @@ router.delete('/products/:id', async (req, res) => {
 router.post('/reset', async (req, res) => {
   try {
     await db.resetProducts();
-    res.json({ success: true, message: 'Datos demo restablecidos.' });
+    res.json({ success: true, message: 'Catálogo de Hamburger Rapid restablecido.' });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
-});
-
-// Helper for socket testing
-function checkTcpPort(host, port = 3306, timeout = 300) {
-  return new Promise((resolve) => {
-    const socket = new net.Socket();
-    socket.setTimeout(timeout);
-    socket.once('connect', () => {
-      socket.destroy();
-      resolve({ host, port, open: true });
-    });
-    socket.once('timeout', () => {
-      socket.destroy();
-      resolve({ host, port, open: false, reason: 'timeout' });
-    });
-    socket.once('error', (err) => {
-      resolve({ host, port, open: false, reason: err.code || err.message });
-    });
-    socket.connect(port, host);
-  });
-}
-
-// Diagnostic network endpoint
-router.get('/debug-network', async (req, res) => {
-  const hostsToTest = [
-    process.env.DB_HOST,
-    '172.18.0.1',
-    '172.17.0.1',
-    '127.0.0.1'
-  ].filter(Boolean);
-
-  const dnsResults = {};
-  for (const host of hostsToTest) {
-    try {
-      const lookup = await dns.lookup(host);
-      dnsResults[host] = { ok: true, ip: lookup.address };
-    } catch (err) {
-      dnsResults[host] = { ok: false, error: err.message };
-    }
-  }
-
-  const candidateTargets = ['172.18.0.1', '172.17.0.1'];
-  for (let i = 2; i <= 30; i++) {
-    candidateTargets.push(`172.18.0.${i}`);
-  }
-
-  const portScans = await Promise.all(candidateTargets.map(ip => checkTcpPort(ip, 3306, 250)));
-  const open3306 = portScans.filter(p => p.open);
-
-  res.json({
-    hostname: os.hostname(),
-    interfaces: os.networkInterfaces(),
-    environment: {
-      DB_HOST: process.env.DB_HOST,
-      DB_PORT: process.env.DB_PORT,
-      DB_USER: process.env.DB_USER,
-      DB_NAME: process.env.DB_NAME,
-      HAS_PASSWORD: !!process.env.DB_PASSWORD,
-      HAS_DATABASE_URL: !!process.env.DATABASE_URL
-    },
-    dns_tests: dnsResults,
-    open_mysql_ports_found: open3306,
-    db_status: db.getDbStatus()
-  });
 });
 
 module.exports = router;

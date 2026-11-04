@@ -1,414 +1,306 @@
 const mysql = require('mysql2/promise');
 
 const INITIAL_PRODUCTS = [
-  // --- HAMBURGUESAS MAESTRAS NEXTCOLLEGE RAPID (4) ---
-  {
-    id: 101,
-    name: 'Rey de las hamburguesas a la parrilla',
-    category: 'A la Parrilla',
-    price: 14.99,
-    stock: 45,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=80',
-    description: 'Carne 100% Angus flameada a la leña de roble, queso cheddar añejo fundido, cebolla caramelizada al bourbon y panceta crocante.'
-  },
-  {
-    id: 102,
-    name: 'Hamburguesa Real',
-    category: 'A la Parrilla',
-    price: 11.50,
-    stock: 60,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500&auto=format&fit=crop&q=80',
-    description: 'Doble medallón smash con costra caramelizada, queso americano fundido, pepinillos agridulces y aderezo imperial.'
-  },
-  {
-    id: 103,
-    name: 'Hamburguesa Royal Crispy',
-    category: 'Pollo Crispy',
-    price: 12.99,
-    stock: 35,
-    image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500&auto=format&fit=crop&q=80',
-    description: 'Pechuga marinada en suero de leche 24h y 11 especias, ensalada coleslaw fresca con manzana y emulsión honey mustard.'
-  },
-  {
-    id: 104,
-    name: 'HamburguesaDouble Whopper',
-    category: 'Gigantes XXL',
-    price: 15.50,
-    stock: 28,
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&auto=format&fit=crop&q=80',
-    description: 'Doble medallón gigante a la parrilla de carbón vivo, lechuga romana, tomate maduro, aros de cebolla morada y salsa tártara.'
-  },
-
-  // --- COMPUTADORAS (10) ---
   {
     id: 1,
-    name: 'NextCollege Pro Laptop 15"',
-    category: 'Computadoras',
-    price: 1199.99,
-    stock: 24,
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&auto=format&fit=crop&q=60',
-    description: 'Portátil de alto rendimiento optimizado para desarrollo de software e inteligencia artificial.'
+    name: 'Rey de las Burgers',
+    category: 'Especialidades',
+    price: 14.99,
+    stock: 45,
+    specialty_badge: '👑 Corona de Oro • Legendaria',
+    specialty_level: 'Legendaria',
+    rating: 4.9,
+    prep_time: '12 min',
+    calories: '920 kcal',
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=700&auto=format&fit=crop&q=80',
+    description: 'Doble carne Angus madurada 180g a la parrilla de roble, queso cheddar inglés añejado, cebolla caramelizada al bourbon de Kentucky y crujiente panceta ahumada.',
+    ingredients: ['Doble Carne Angus 180g', 'Cheddar Inglés Añejo', 'Bacon Crujiente', 'Cebolla al Bourbon', 'Pan Brioche Mantequilla']
   },
   {
     id: 2,
-    name: 'Ultrabook DevMaster M3 14"',
-    category: 'Computadoras',
-    price: 1449.00,
-    stock: 18,
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60',
-    description: 'Chasis ultrafino de aluminio, pantalla Retina y 32GB de memoria unificada.'
+    name: 'Burger Real Clásica',
+    category: 'Clásicas',
+    price: 10.99,
+    stock: 60,
+    specialty_badge: '⭐ Clásica Premium • Signature',
+    specialty_level: 'Signature',
+    rating: 4.8,
+    prep_time: '8 min',
+    calories: '740 kcal',
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=700&auto=format&fit=crop&q=80',
+    description: 'Carne de res seleccionada a las brasas de quebracho, queso americano fundente, pepinillos encurtidos artesanalmente, tomate de temporada, lechuga romana y aderezo imperial Rapid.',
+    ingredients: ['Carne Res Selecta 180g', 'Queso Americano', 'Pepinillos Dulces', 'Tomate & Lechuga', 'Salsa Imperial Rapid']
   },
   {
     id: 3,
-    name: 'Estación de Trabajo AI Titan X',
-    category: 'Computadoras',
-    price: 2399.00,
-    stock: 12,
-    image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=500&auto=format&fit=crop&q=60',
-    description: 'Torre de cómputo para entrenamiento de modelos LLM locales y renderizado 3D.'
+    name: 'Burger Real Doble',
+    category: 'Dobles',
+    price: 13.50,
+    stock: 50,
+    specialty_badge: '🔥 Doble Poder • Élite',
+    specialty_level: 'Élite',
+    rating: 4.9,
+    prep_time: '10 min',
+    calories: '980 kcal',
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=700&auto=format&fit=crop&q=80',
+    description: 'Doble medallón de res 100% corte fino (300g total) asado a fuego vivo, doble queso Monterey Jack, doble capa de bacon ahumado con madera de manzano y mayonesa trufada.',
+    ingredients: ['Doble Medallón 300g', 'Doble Monterey Jack', 'Bacon Ahumado Manzano', 'Cebolla Morada', 'Mayo Trufada']
   },
   {
     id: 4,
-    name: 'Mini PC Compact Ryzen 9 Pro',
-    category: 'Computadoras',
-    price: 749.50,
-    stock: 35,
-    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=500&auto=format&fit=crop&q=60',
-    description: 'Potencia de sobremesa en la palma de tu mano, silenciosa y de bajo consumo energético.'
+    name: 'Burger Doble Especial',
+    category: 'Especialidades',
+    price: 14.25,
+    stock: 38,
+    specialty_badge: '🏆 Creación Exclusiva • Master',
+    specialty_level: 'Master',
+    rating: 4.9,
+    prep_time: '11 min',
+    calories: '960 kcal',
+    image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=700&auto=format&fit=crop&q=80',
+    description: 'Doble carne smash caramelizada con costra crujiente de alta temperatura, aros de cebolla crocantes a la cerveza rubia, relish de jalapeños dulces y cremosa salsa de cuatro quesos.',
+    ingredients: ['Doble Smash Caramelizado', 'Aros de Cebolla Rebozados', 'Relish Jalapeño Suave', 'Salsa 4 Quesos', 'Pan de Papa Dorado']
   },
   {
     id: 5,
-    name: 'Laptop Gamer & Render RTX 4080',
-    category: 'Computadoras',
-    price: 1899.00,
-    stock: 15,
-    image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&auto=format&fit=crop&q=60',
-    description: 'Pantalla 240Hz QHD, refrigeración líquida y gráfica NVIDIA RTX para cargas pesadas.'
+    name: 'Burger Trufa & Portobello',
+    category: 'Gourmet',
+    price: 15.50,
+    stock: 32,
+    specialty_badge: '🍄 Gourmet Supreme • Black Label',
+    specialty_level: 'Black Label',
+    rating: 5.0,
+    prep_time: '13 min',
+    calories: '830 kcal',
+    image: 'https://images.unsplash.com/photo-1582196016295-f8c8bd4b3e99?w=700&auto=format&fit=crop&q=80',
+    description: 'Carne Angus premium de pastoreo, láminas de setas Portobello glaseadas al tomillo fresco, queso Gouda holandés madurado y alioli de trufa de verano sobre brioche artesanal.',
+    ingredients: ['Carne Angus Pastoreo', 'Portobello al Tomillo', 'Queso Gouda Holandés', 'Alioli de Trufa Negra', 'Rúcula Selvática']
   },
   {
     id: 6,
-    name: 'Tablet Pro Studio 12.9" Stylus',
-    category: 'Computadoras',
-    price: 899.00,
-    stock: 28,
-    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&auto=format&fit=crop&q=60',
-    description: 'Pantalla OLED con lápiz óptico de baja latencia para diseño y programación táctil.'
+    name: 'Burger Smoked BBQ Bacon',
+    category: 'Ahumados',
+    price: 12.75,
+    stock: 44,
+    specialty_badge: '🪵 Ahumado Roble • Artesanal',
+    specialty_level: 'Artesanal',
+    rating: 4.8,
+    prep_time: '9 min',
+    calories: '860 kcal',
+    image: 'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=700&auto=format&fit=crop&q=80',
+    description: 'Medallón ahumado a baja temperatura con leña de mezquite, tocino grueso crujiente, queso Pepper Jack fundido, cebolla crispy y barbacoa casera con toque de miel de agave.',
+    ingredients: ['Carne Ahumada Mezquite', 'Tocino Grueso de Granja', 'Pepper Jack Fundente', 'Cebolla Crispy', 'BBQ Casera con Agave']
   },
   {
     id: 7,
-    name: 'All-in-One 4K Display 27" Core i7',
-    category: 'Computadoras',
-    price: 1299.00,
-    stock: 20,
-    image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop&q=60',
-    description: 'Elegancia minimalista todo en uno con altavoces frontales y cámara web retráctil.'
+    name: 'Burger Crispy Royal Chicken',
+    category: 'Pollo Crispy',
+    price: 11.80,
+    stock: 40,
+    specialty_badge: '🍗 Crunch Dorado • Superior',
+    specialty_level: 'Superior',
+    rating: 4.7,
+    prep_time: '10 min',
+    calories: '780 kcal',
+    image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=700&auto=format&fit=crop&q=80',
+    description: 'Suprema de pechuga marinada 24h en buttermilk y mix de 11 especias secretas, empanizado ultracrujiente dorado, ensalada coleslaw fresca de col morada y emulsión honey mustard.',
+    ingredients: ['Pechuga Buttermilk 24h', 'Empanizado Crujiente 11 Especias', 'Coleslaw Morada Fresca', 'Honey Mustard Artesanal', 'Pepinillos Dulces']
   },
   {
     id: 8,
-    name: 'Servidor Doméstico HomeLab 32GB',
-    category: 'Computadoras',
-    price: 620.00,
-    stock: 14,
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&auto=format&fit=crop&q=60',
-    description: 'Diseñado para Docker, contenedores y microservicios personales 24/7.'
+    name: 'Burger Spicy Chipotle Fire',
+    category: 'Picantes',
+    price: 12.90,
+    stock: 35,
+    specialty_badge: '🌶️ Fuego Bravo • Intenso',
+    specialty_level: 'Intenso',
+    rating: 4.8,
+    prep_time: '9 min',
+    calories: '810 kcal',
+    image: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=700&auto=format&fit=crop&q=80',
+    description: 'Carne Angus picada a cuchillo con sazón cajún, queso provolone ahumado, rodajas de piña asada al grill caramelizada, jalapeños al escabeche y aderezo bravo de chipotle cremoso.',
+    ingredients: ['Carne Angus Sazón Cajún', 'Provolone Ahumado', 'Piña Asada al Grill', 'Jalapeños Escabechados', 'Chipotle Cream Bravo']
   },
   {
     id: 9,
-    name: 'Laptop Ligera Go 13" Carbon',
-    category: 'Computadoras',
-    price: 849.99,
-    stock: 40,
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&auto=format&fit=crop&q=60',
-    description: 'Pesa menos de 1 kg con batería para más de 18 horas de trabajo remoto continuo.'
+    name: 'Burger Guacamole & Queso Fundido',
+    category: 'Especialidades',
+    price: 13.20,
+    stock: 36,
+    specialty_badge: '🥑 Frescura Viva • Selección',
+    specialty_level: 'Selección',
+    rating: 4.7,
+    prep_time: '10 min',
+    calories: '840 kcal',
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700&auto=format&fit=crop&q=80',
+    description: 'Carne de res a la plancha cubierta con abundante guacamole artesanal con aguacate Hass, pico de gallo campesino fresco, crocantes totopos de maíz azul y suave queso fundido.',
+    ingredients: ['Carne Res Grill', 'Guacamole Fresco Hass', 'Pico de Gallo Cítrico', 'Totopos Maíz Azul', 'Queso Oaxaca Fundente']
   },
   {
     id: 10,
-    name: 'Portátil Dual-Screen Duo Pro',
-    category: 'Computadoras',
-    price: 1750.00,
-    stock: 10,
-    image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=500&auto=format&fit=crop&q=60',
-    description: 'Doble pantalla integrada para multitarea extrema y visualización de código en paralelo.'
-  },
-
-  // --- AUDIO (10) ---
-  {
-    id: 11,
-    name: 'Auriculares Noise-Cancelling ANC Pro',
-    category: 'Audio',
-    price: 189.50,
-    stock: 45,
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60',
-    description: 'Cancelación activa de ruido híbrida para sesiones de programación sin distracciones.'
-  },
-  {
-    id: 12,
-    name: 'Micrófono USB Condensador Studio',
-    category: 'Audio',
-    price: 129.90,
-    stock: 32,
-    image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60',
-    description: 'Cápsula cardioide de 24 bits / 96 kHz ideal para podcasts, streaming y videollamadas.'
-  },
-  {
-    id: 13,
-    name: 'Monitores de Audio de Estudio 5" (Par)',
-    category: 'Audio',
-    price: 299.00,
-    stock: 22,
-    image: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=60',
-    description: 'Respuesta en frecuencia plana para mezcla precisa y masterización de sonido.'
-  },
-  {
-    id: 14,
-    name: 'Auriculares In-Ear Hi-Fi IEM Dual Driver',
-    category: 'Audio',
-    price: 85.00,
-    stock: 50,
-    image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&auto=format&fit=crop&q=60',
-    description: 'Aislamiento pasivo de -26 dB con cable trenzado desmontable chapado en plata.'
-  },
-  {
-    id: 15,
-    name: 'Micrófono Dinámico XLR Broadcast',
-    category: 'Audio',
-    price: 210.00,
-    stock: 19,
-    image: 'https://images.unsplash.com/photo-1520523839898-50712825e3a7?w=500&auto=format&fit=crop&q=60',
-    description: 'Filtro antipop integrado y rechazo de ruido electromagnético para voz radial profesional.'
-  },
-  {
-    id: 16,
-    name: 'Barra de Sonido Deskbar Subwoofer RGB',
-    category: 'Audio',
-    price: 145.00,
-    stock: 38,
-    image: 'https://images.unsplash.com/photo-1543512214-318c7553f230?w=500&auto=format&fit=crop&q=60',
-    description: 'Diseño horizontal compacto para colocar debajo del monitor con iluminación ambiental.'
-  },
-  {
-    id: 17,
-    name: 'Auriculares Inalámbricos Open-Ear Sport',
-    category: 'Audio',
-    price: 115.00,
-    stock: 42,
-    image: 'https://images.unsplash.com/photo-1590658006821-04f4008d5717?w=500&auto=format&fit=crop&q=60',
-    description: 'Conducción ósea para escuchar música sin aislarte de los sonidos del entorno.'
-  },
-  {
-    id: 18,
-    name: 'Interfaz de Audio USB 2 Canales 192kHz',
-    category: 'Audio',
-    price: 169.00,
-    stock: 26,
-    image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=500&auto=format&fit=crop&q=60',
-    description: 'Preamplificadores transparentes con alimentación Phantom +48V y latencia cero.'
-  },
-  {
-    id: 19,
-    name: 'Altavoz Portátil Bluetooth IP67',
-    category: 'Audio',
-    price: 79.90,
-    stock: 60,
-    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&auto=format&fit=crop&q=60',
-    description: 'Batería de 24 horas, resistente al agua y polvo con sonido estéreo 360 grados.'
-  },
-  {
-    id: 20,
-    name: 'Cascos Gaming Espacial 7.1 con Micro',
-    category: 'Audio',
-    price: 139.00,
-    stock: 34,
-    image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&auto=format&fit=crop&q=60',
-    description: 'Audio posicional envolvente con almohadillas viscoelásticas y micrófono retráctil.'
-  },
-
-  // --- WEARABLES (10) ---
-  {
-    id: 21,
-    name: 'Smartwatch NextTrack Series X',
-    category: 'Wearables',
-    price: 249.00,
-    stock: 30,
-    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60',
-    description: 'Monitorización de salud, ECG, SpO2 y notificaciones push sincronizadas en tiempo real.'
-  },
-  {
-    id: 22,
-    name: 'Pulsera de Actividad FitPulse Band 5',
-    category: 'Wearables',
-    price: 49.90,
-    stock: 65,
-    image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500&auto=format&fit=crop&q=60',
-    description: 'Pantalla AMOLED a color, registro de 30 deportes y autonomía de hasta 14 días.'
-  },
-  {
-    id: 23,
-    name: 'Anillo Inteligente SmartRing Health O2',
-    category: 'Wearables',
-    price: 199.00,
+    name: 'Burger Smash Monster Cuádruple',
+    category: 'Dobles',
+    price: 16.90,
     stock: 25,
-    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&auto=format&fit=crop&q=60',
-    description: 'Titanio hipoalergénico que mide sueño profundo, temperatura corporal y recuperación.'
-  },
-  {
-    id: 24,
-    name: 'Reloj Deportivo GPS Ultra Trail',
-    category: 'Wearables',
-    price: 389.00,
-    stock: 16,
-    image: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&auto=format&fit=crop&q=60',
-    description: 'Bisel de zafiro, mapas topográficos sin conexión y carga solar integrada.'
-  },
-  {
-    id: 25,
-    name: 'Gafas Inteligentes Audio Bluetooth',
-    category: 'Wearables',
-    price: 159.00,
-    stock: 28,
-    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60',
-    description: 'Lentes polarizadas UV400 con altavoces en las patillas y control táctil para llamadas.'
-  },
-  {
-    id: 26,
-    name: 'Banda Monitor Cardíaco Bluetooth/ANT+',
-    category: 'Wearables',
-    price: 69.00,
-    stock: 40,
-    image: 'https://images.unsplash.com/photo-1510519138161-58446c623304?w=500&auto=format&fit=crop&q=60',
-    description: 'Sensor pectoral de alta precisión para entrenamientos por zonas de frecuencia cardíaca.'
-  },
-  {
-    id: 27,
-    name: 'Smartwatch Elegance Cuero & Acero',
-    category: 'Wearables',
-    price: 279.00,
-    stock: 20,
-    image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60',
-    description: 'Estética de reloj clásico suizo con pantalla siempre activa y caja de acero inoxidable.'
-  },
-  {
-    id: 28,
-    name: 'Rastreador GPS Mini Tag (Pack 4)',
-    category: 'Wearables',
-    price: 79.00,
-    stock: 55,
-    image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=60',
-    description: 'Localización global mediante red crowdsourced con altavoz integrado para búsqueda cercana.'
-  },
-  {
-    id: 29,
-    name: 'Reloj Inteligente Infantil SOS con Cámara',
-    category: 'Wearables',
-    price: 89.00,
-    stock: 35,
-    image: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=500&auto=format&fit=crop&q=60',
-    description: 'Llamadas 4G bidireccionales, geovalla de seguridad y botón de auxilio inmediato.'
-  },
-  {
-    id: 30,
-    name: 'Visor Realidad Aumentada Dev Edition',
-    category: 'Wearables',
-    price: 599.00,
-    stock: 8,
-    image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=500&auto=format&fit=crop&q=60',
-    description: 'Proyección de pantallas flotantes virtuales para programar en cualquier lugar.'
-  },
+    specialty_badge: '⚡ Monster Legend • Colosal',
+    specialty_level: 'Colosal',
+    rating: 4.9,
+    prep_time: '14 min',
+    calories: '1180 kcal',
+    image: 'https://images.unsplash.com/photo-1583032015879-166c42959885?w=700&auto=format&fit=crop&q=80',
+    description: 'Cuatro patties smash ultrafinos de máxima caramelización (400g carne total), cuatro lonchas de queso cheddar derretido entre cada capa, pepinillos en juliana y salsa secreta Rapid XL.',
+    ingredients: ['4 Medallones Smash (400g)', '4 Capas Cheddar Fundido', 'Pepinillos en Juliana', 'Cebolla Picada Fina', 'Salsa Secreta Rapid XL']
+  }
+];
 
-  // --- ACCESORIOS (10) ---
+const INITIAL_CONSUMERS = [
   {
-    id: 31,
-    name: 'Teclado Mecánico RGB Hot-Swap',
-    category: 'Accesorios',
-    price: 99.90,
-    stock: 58,
-    image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60',
-    description: 'Switches mecánicos táctiles de respuesta ultrarrápida con retroiluminación personalizable.'
+    id: 'CUST-01',
+    name: 'Valentina Restrepo',
+    email: 'valentina.restrepo@gmail.com',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+    tier: 'VIP Diamante',
+    totalOrders: 38,
+    totalSpent: 542.80,
+    burgersConsumed: 64,
+    favoriteBurger: 'Rey de las Burgers',
+    lastOrderDate: 'Hace 2 horas',
+    segment: 'Consumidor Frecuente',
+    monthlyFrequency: '5.2 pedidos/mes'
   },
   {
-    id: 32,
-    name: 'Mouse Ergonómico Vertical Inalámbrico',
-    category: 'Accesorios',
-    price: 59.90,
-    stock: 48,
-    image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60',
-    description: 'Postura neutra a 57 grados para prevenir la fatiga y el síndrome del túnel carpiano.'
+    id: 'CUST-02',
+    name: 'Alejandro Morales',
+    email: 'a.morales.tech@corp.io',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    tier: 'VIP Platino',
+    totalOrders: 29,
+    totalSpent: 435.50,
+    burgersConsumed: 52,
+    favoriteBurger: 'Burger Real Doble',
+    lastOrderDate: 'Ayer',
+    segment: 'Corporativo / Almuerzo',
+    monthlyFrequency: '4.1 pedidos/mes'
   },
   {
-    id: 33,
-    name: 'Monitor Portátil USB-C 15.6" IPS FHD',
-    category: 'Accesorios',
-    price: 179.00,
-    stock: 25,
-    image: 'https://images.unsplash.com/photo-1547119957-637f8679db17?w=500&auto=format&fit=crop&q=60',
-    description: 'Segunda pantalla ultraligera con un solo cable USB-C de señal y alimentación.'
+    id: 'CUST-03',
+    name: 'Camila Villalobos',
+    email: 'camilav@outlook.com',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    tier: 'VIP Oro',
+    totalOrders: 22,
+    totalSpent: 328.70,
+    burgersConsumed: 36,
+    favoriteBurger: 'Burger Doble Especial',
+    lastOrderDate: 'Hace 3 días',
+    segment: 'Gourmet Lover',
+    monthlyFrequency: '3.4 pedidos/mes'
   },
   {
-    id: 34,
-    name: 'Docking Station Thunderbolt 4 12-en-1',
-    category: 'Accesorios',
-    price: 219.00,
-    stock: 30,
-    image: 'https://images.unsplash.com/photo-1544652478-6653e09f18a2?w=500&auto=format&fit=crop&q=60',
-    description: 'Soporta hasta dos pantallas 4K a 60Hz, Gigabit Ethernet y carga Power Delivery de 100W.'
+    id: 'CUST-04',
+    name: 'Santiago Navarro',
+    email: 'santiago.nav@gmail.com',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+    tier: 'VIP Oro',
+    totalOrders: 18,
+    totalSpent: 265.40,
+    burgersConsumed: 29,
+    favoriteBurger: 'Burger Trufa & Portobello',
+    lastOrderDate: 'Hace 4 días',
+    segment: 'Gourmet Lover',
+    monthlyFrequency: '2.8 pedidos/mes'
   },
   {
-    id: 35,
-    name: 'Webcam 4K Pro con IA y Micrófono',
-    category: 'Accesorios',
-    price: 119.00,
-    stock: 36,
-    image: 'https://images.unsplash.com/photo-1588508065123-287b28e013da?w=500&auto=format&fit=crop&q=60',
-    description: 'Encuadre automático por inteligencia artificial, sensor HDR y obturador de privacidad.'
+    id: 'CUST-05',
+    name: 'Mariana Duarte',
+    email: 'mariana.d@gmail.com',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+    tier: 'Club Silver',
+    totalOrders: 14,
+    totalSpent: 198.20,
+    burgersConsumed: 21,
+    favoriteBurger: 'Burger Real Clásica',
+    lastOrderDate: 'Hace 1 semana',
+    segment: 'Familiar Fin de Semana',
+    monthlyFrequency: '2.1 pedidos/mes'
   },
   {
-    id: 36,
-    name: 'Desk Pad Cuero Ecológico XL 90x40cm',
-    category: 'Accesorios',
-    price: 34.50,
-    stock: 75,
-    image: 'https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=500&auto=format&fit=crop&q=60',
-    description: 'Alfombrilla antideslizante impermeable de tacto suave para teclado y ratón.'
+    id: 'CUST-06',
+    name: 'Mateo Cárdenas',
+    email: 'mateo.cardenas@live.com',
+    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80',
+    tier: 'Club Silver',
+    totalOrders: 11,
+    totalSpent: 162.90,
+    burgersConsumed: 18,
+    favoriteBurger: 'Burger Smash Monster Cuádruple',
+    lastOrderDate: 'Hace 1 semana',
+    segment: 'Consumidor Joven',
+    monthlyFrequency: '1.9 pedidos/mes'
   },
   {
-    id: 37,
-    name: 'Brazo Articulado para Monitor Doble',
-    category: 'Accesorios',
-    price: 79.00,
-    stock: 42,
-    image: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=500&auto=format&fit=crop&q=60',
-    description: 'Pistón de gas con soporte VESA 75/100 para monitores de hasta 32 pulgadas.'
+    id: 'CUST-07',
+    name: 'Lucía Fernández',
+    email: 'lucia.fdz@gmail.com',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+    tier: 'Nuevo Miembro',
+    totalOrders: 5,
+    totalSpent: 74.50,
+    burgersConsumed: 8,
+    favoriteBurger: 'Burger Crispy Royal Chicken',
+    lastOrderDate: 'Hace 2 semanas',
+    segment: 'Nuevo Cliente',
+    monthlyFrequency: '1.2 pedidos/mes'
+  }
+];
+
+const INITIAL_ORDERS = [
+  {
+    id: 'ORD-7821',
+    customerName: 'Valentina Restrepo',
+    items: [
+      { id: 1, name: 'Rey de las Burgers', quantity: 2, price: 14.99 },
+      { id: 3, name: 'Burger Real Doble', quantity: 1, price: 13.50 }
+    ],
+    total: 43.48,
+    status: 'en_preparacion',
+    statusLabel: 'En Cocina 👨‍🍳',
+    address: 'Av. Del Libertador 1420, Depto 5B',
+    createdAt: new Date(Date.now() - 12 * 60 * 1000).toISOString(),
+    estimatedTime: '15-20 min'
   },
   {
-    id: 38,
-    name: 'Lámpara de Monitor ScreenBar LED',
-    category: 'Accesorios',
-    price: 49.00,
-    stock: 60,
-    image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop&q=60',
-    description: 'Iluminación asimétrica antideslumbrante con temperatura de color regulable.'
+    id: 'ORD-7820',
+    customerName: 'Alejandro Morales',
+    items: [
+      { id: 4, name: 'Burger Doble Especial', quantity: 1, price: 14.25 },
+      { id: 2, name: 'Burger Real Clásica', quantity: 1, price: 10.99 }
+    ],
+    total: 25.24,
+    status: 'en_camino',
+    statusLabel: 'En Camino con Repartidor 🛵',
+    address: 'Paseo de la Reforma 250, Piso 12',
+    createdAt: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
+    estimatedTime: '5-10 min'
   },
   {
-    id: 39,
-    name: 'Soporte Elevador de Aluminio Laptop',
-    category: 'Accesorios',
-    price: 39.90,
-    stock: 50,
-    image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&auto=format&fit=crop&q=60',
-    description: 'Disipación pasiva de calor con base giratoria 360 grados y altura ajustable.'
-  },
-  {
-    id: 40,
-    name: 'Cargador GaN 100W 4 Puertos USB-C/A',
-    category: 'Accesorios',
-    price: 55.00,
-    stock: 68,
-    image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500&auto=format&fit=crop&q=60',
-    description: 'Tecnología Nitruro de Galio compacta para cargar laptop, tablet y smartphone a la vez.'
+    id: 'ORD-7819',
+    customerName: 'Santiago Navarro',
+    items: [
+      { id: 5, name: 'Burger Trufa & Portobello', quantity: 2, price: 15.50 }
+    ],
+    total: 31.00,
+    status: 'entregado',
+    statusLabel: 'Entregado con Éxito ✅',
+    address: 'Calle Los Sauces 432',
+    createdAt: new Date(Date.now() - 75 * 60 * 1000).toISOString(),
+    estimatedTime: 'Completado'
   }
 ];
 
 let inMemoryProducts = [...INITIAL_PRODUCTS];
+let inMemoryConsumers = [...INITIAL_CONSUMERS];
+let inMemoryOrders = [...INITIAL_ORDERS];
 let pool = null;
 let isConnectedToMySQL = false;
 let lastDbError = null;
@@ -423,7 +315,7 @@ async function initDB() {
 
   if (!databaseUrl && !host) {
     lastDbError = 'Variables DB_HOST ni DATABASE_URL configuradas en el entorno.';
-    console.log(`ℹ️ [DB] ${lastDbError} Operando en modo In-Memory para demostración.`);
+    console.log(`ℹ️ [DB] ${lastDbError} Operando en modo In-Memory para Hamburger Rapid.`);
     return;
   }
 
@@ -432,7 +324,7 @@ async function initDB() {
       console.log(`🔄 [DB] Intentando conectar a MySQL vía DATABASE_URL...`);
       pool = mysql.createPool(databaseUrl);
     } else {
-      console.log(`🔄 [DB] Intentando conectar a MySQL en ${host}:${port} con usuario "${user}" a la BD "${database}"...`);
+      console.log(`🔄 [DB] Intentando conectar a MySQL en ${host}:${port}...`);
       pool = mysql.createPool({
         host,
         user,
@@ -446,11 +338,9 @@ async function initDB() {
       });
     }
 
-    // Probar conexión inmediata
     const connection = await pool.getConnection();
     console.log(`✅ [DB] Conectado exitosamente a MySQL (${host || 'URL'} - BD: ${database})`);
 
-    // Crear tabla si no existe
     await connection.query(`
       CREATE TABLE IF NOT EXISTS products (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -458,20 +348,38 @@ async function initDB() {
         category VARCHAR(100) NOT NULL,
         price DECIMAL(10,2) NOT NULL,
         stock INT NOT NULL DEFAULT 0,
+        specialty_badge VARCHAR(255),
+        specialty_level VARCHAR(100),
+        rating DECIMAL(3,1) DEFAULT 4.8,
+        prep_time VARCHAR(50),
+        calories VARCHAR(50),
         image VARCHAR(500),
         description TEXT,
+        ingredients JSON,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
-    // Sembrar datos iniciales si la tabla está vacía
     const [rows] = await connection.query('SELECT COUNT(*) as count FROM products');
     if (rows[0].count === 0) {
-      console.log('🌱 [DB] Inicializando datos demo en la tabla products de MySQL (40 productos)...');
+      console.log('🌱 [DB] Inicializando catálogo de Hamburger Rapid (10 variantes)...');
       for (const p of INITIAL_PRODUCTS) {
         await connection.query(
-          'INSERT INTO products (name, category, price, stock, image, description) VALUES (?, ?, ?, ?, ?, ?)',
-          [p.name, p.category, p.price, p.stock, p.image, p.description]
+          'INSERT INTO products (name, category, price, stock, specialty_badge, specialty_level, rating, prep_time, calories, image, description, ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [
+            p.name,
+            p.category,
+            p.price,
+            p.stock,
+            p.specialty_badge,
+            p.specialty_level,
+            p.rating,
+            p.prep_time,
+            p.calories,
+            p.image,
+            p.description,
+            JSON.stringify(p.ingredients)
+          ]
         );
       }
     }
@@ -480,60 +388,6 @@ async function initDB() {
     isConnectedToMySQL = true;
     lastDbError = null;
   } catch (error) {
-    console.warn(`⚠️ [DB] Conexión directa falló: ${error.message}. Escaneando red interna...`);
-    try {
-      const candidates = [];
-      for (let i = 2; i <= 30; i++) candidates.push(`172.18.0.${i}`);
-      for (let i = 1; i <= 254; i++) candidates.push(`10.0.1.${i}`);
-      candidates.push('172.18.0.1', '172.17.0.1');
-
-      const net = require('net');
-      const check = (ip) => new Promise((resolve) => {
-        const s = new net.Socket();
-        s.setTimeout(250);
-        s.once('connect', () => { s.destroy(); resolve(ip); });
-        s.once('timeout', () => { s.destroy(); resolve(null); });
-        s.once('error', () => { resolve(null); });
-        s.connect(3306, ip);
-      });
-
-      const found = (await Promise.all(candidates.map(check))).filter(Boolean);
-      if (found.length > 0) {
-        const discoveredIp = found[0];
-        console.log(`🎯 [DB Discovery] ¡MySQL encontrado automáticamente en IP ${discoveredIp}! Conectando...`);
-        pool = mysql.createPool({
-          host: discoveredIp,
-          user,
-          password,
-          database,
-          port: 3306,
-          waitForConnections: true,
-          connectionLimit: 10,
-          connectTimeout: 5000
-        });
-        const conn = await pool.getConnection();
-        console.log(`✅ [DB] Conectado exitosamente a MySQL en ${discoveredIp}`);
-        await conn.query(`
-          CREATE TABLE IF NOT EXISTS products (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            category VARCHAR(100) NOT NULL,
-            price DECIMAL(10,2) NOT NULL,
-            stock INT NOT NULL DEFAULT 0,
-            image VARCHAR(500),
-            description TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          )
-        `);
-        conn.release();
-        isConnectedToMySQL = true;
-        lastDbError = null;
-        return;
-      }
-    } catch (discoveryErr) {
-      console.warn('Error en escaneo de red:', discoveryErr.message);
-    }
-
     lastDbError = error.message;
     console.warn(`⚠️ [DB] No se pudo conectar a MySQL: ${error.message}. Operando en modo In-Memory.`);
     isConnectedToMySQL = false;
@@ -547,8 +401,11 @@ async function getProducts() {
 
   if (isConnectedToMySQL && pool) {
     try {
-      const [rows] = await pool.query('SELECT * FROM products ORDER BY id DESC');
-      return rows;
+      const [rows] = await pool.query('SELECT * FROM products ORDER BY id ASC');
+      return rows.map(r => ({
+        ...r,
+        ingredients: typeof r.ingredients === 'string' ? JSON.parse(r.ingredients) : (r.ingredients || [])
+      }));
     } catch (err) {
       console.error('Error consultando MySQL, recurriendo a memoria temporal:', err.message);
       lastDbError = err.message;
@@ -557,28 +414,49 @@ async function getProducts() {
   return inMemoryProducts;
 }
 
-async function addProduct({ name, category, price, stock, image, description }) {
-  if (!isConnectedToMySQL && (process.env.DB_HOST || process.env.DATABASE_URL)) {
-    await initDB();
-  }
-
-  if (isConnectedToMySQL && pool) {
-    const [result] = await pool.query(
-      'INSERT INTO products (name, category, price, stock, image, description) VALUES (?, ?, ?, ?, ?, ?)',
-      [name, category, parseFloat(price) || 0, parseInt(stock, 10) || 0, image || '', description || '']
-    );
-    return { id: result.insertId, name, category, price: parseFloat(price) || 0, stock: parseInt(stock, 10) || 0, image, description };
-  }
-
+async function addProduct(prod) {
   const newProduct = {
     id: Date.now(),
-    name,
-    category: category || 'General',
-    price: parseFloat(price) || 0,
-    stock: parseInt(stock, 10) || 0,
-    image: image || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=500&auto=format&fit=crop&q=60',
-    description: description || 'Producto agregado durante la demo en vivo.'
+    name: prod.name,
+    category: prod.category || 'Especialidades',
+    price: parseFloat(prod.price) || 0,
+    stock: parseInt(prod.stock, 10) || 0,
+    specialty_badge: prod.specialty_badge || '✨ Nueva Creación',
+    specialty_level: prod.specialty_level || 'Especial',
+    rating: parseFloat(prod.rating) || 4.8,
+    prep_time: prod.prep_time || '10 min',
+    calories: prod.calories || '850 kcal',
+    image: prod.image || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=700&auto=format&fit=crop&q=80',
+    description: prod.description || 'Hamburguesa artesanal recién agregada al menú de Hamburger Rapid.',
+    ingredients: Array.isArray(prod.ingredients) ? prod.ingredients : ['Carne Seleccionada', 'Queso Fundido', 'Pan Brioche']
   };
+
+  if (isConnectedToMySQL && pool) {
+    try {
+      const [result] = await pool.query(
+        'INSERT INTO products (name, category, price, stock, specialty_badge, specialty_level, rating, prep_time, calories, image, description, ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          newProduct.name,
+          newProduct.category,
+          newProduct.price,
+          newProduct.stock,
+          newProduct.specialty_badge,
+          newProduct.specialty_level,
+          newProduct.rating,
+          newProduct.prep_time,
+          newProduct.calories,
+          newProduct.image,
+          newProduct.description,
+          JSON.stringify(newProduct.ingredients)
+        ]
+      );
+      newProduct.id = result.insertId;
+      return newProduct;
+    } catch (err) {
+      console.error('Error insertando en MySQL:', err.message);
+    }
+  }
+
   inMemoryProducts.unshift(newProduct);
   return newProduct;
 }
@@ -594,26 +472,115 @@ async function deleteProduct(id) {
 }
 
 async function resetProducts() {
+  inMemoryProducts = [...INITIAL_PRODUCTS];
   if (isConnectedToMySQL && pool) {
     await pool.query('TRUNCATE TABLE products');
     for (const p of INITIAL_PRODUCTS) {
       await pool.query(
-        'INSERT INTO products (name, category, price, stock, image, description) VALUES (?, ?, ?, ?, ?, ?)',
-        [p.name, p.category, p.price, p.stock, p.image, p.description]
+        'INSERT INTO products (name, category, price, stock, specialty_badge, specialty_level, rating, prep_time, calories, image, description, ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          p.name,
+          p.category,
+          p.price,
+          p.stock,
+          p.specialty_badge,
+          p.specialty_level,
+          p.rating,
+          p.prep_time,
+          p.calories,
+          p.image,
+          p.description,
+          JSON.stringify(p.ingredients)
+        ]
       );
     }
-    return;
   }
-  inMemoryProducts = [...INITIAL_PRODUCTS];
+}
+
+function getConsumersMetrics() {
+  const totalConsumers = inMemoryConsumers.length;
+  const totalOrders = inMemoryConsumers.reduce((acc, c) => acc + c.totalOrders, 0);
+  const totalSpent = inMemoryConsumers.reduce((acc, c) => acc + c.totalSpent, 0);
+  const totalBurgersConsumed = inMemoryConsumers.reduce((acc, c) => acc + c.burgersConsumed, 0);
+  const avgTicket = totalOrders > 0 ? (totalSpent / totalOrders).toFixed(2) : 0;
+
+  // Segment breakdown
+  const segments = {
+    vip: inMemoryConsumers.filter(c => c.tier.includes('VIP')).length,
+    club: inMemoryConsumers.filter(c => c.tier.includes('Club')).length,
+    new: inMemoryConsumers.filter(c => c.tier.includes('Nuevo')).length
+  };
+
+  // Top consumers sorted by burgers consumed
+  const topConsumers = [...inMemoryConsumers].sort((a, b) => b.burgersConsumed - a.burgersConsumed);
+
+  // Consumption by burger
+  const burgerConsumption = [
+    { name: 'Rey de las Burgers', count: 184, percentage: 32 },
+    { name: 'Burger Real Doble', count: 138, percentage: 24 },
+    { name: 'Burger Doble Especial', count: 105, percentage: 18 },
+    { name: 'Burger Real Clásica', count: 86, percentage: 15 },
+    { name: 'Otras Variantes', count: 62, percentage: 11 }
+  ];
+
+  return {
+    summary: {
+      totalConsumers,
+      totalOrders,
+      totalSpent: totalSpent.toFixed(2),
+      totalBurgersConsumed,
+      avgTicket
+    },
+    segments,
+    topConsumers,
+    burgerConsumption
+  };
+}
+
+function getOrders() {
+  return inMemoryOrders;
+}
+
+function createOrder(orderData) {
+  const orderId = `ORD-${Math.floor(1000 + Math.random() * 9000)}`;
+  const newOrder = {
+    id: orderId,
+    customerName: orderData.customerName || 'Cliente Gourmet',
+    items: orderData.items || [],
+    total: orderData.total || 0,
+    status: 'en_preparacion',
+    statusLabel: 'En Cocina 👨‍🍳',
+    address: orderData.address || 'Av. Principal #101, Local Hamburguesas',
+    createdAt: new Date().toISOString(),
+    estimatedTime: '15-20 min'
+  };
+
+  inMemoryOrders.unshift(newOrder);
+
+  // Update consumers or inventory if applicable
+  const foundConsumer = inMemoryConsumers.find(c => c.name.toLowerCase() === newOrder.customerName.toLowerCase());
+  if (foundConsumer) {
+    foundConsumer.totalOrders += 1;
+    foundConsumer.totalSpent += parseFloat(newOrder.total);
+    const countItems = (newOrder.items || []).reduce((sum, item) => sum + (item.quantity || 1), 0);
+    foundConsumer.burgersConsumed += countItems;
+    foundConsumer.lastOrderDate = 'Hace un momento';
+  }
+
+  return newOrder;
 }
 
 function getDbStatus() {
   return {
     mode: isConnectedToMySQL ? 'mysql' : 'in-memory',
     connected: isConnectedToMySQL,
-    host: process.env.DB_HOST || (process.env.DATABASE_URL ? 'via-database-url' : 'no-configurado'),
-    database: process.env.DB_NAME || 'demo',
-    user: process.env.DB_USER || 'pablovaldivia',
+    host: process.env.DB_HOST || (process.env.DATABASE_URL ? 'via-database-url' : 'in-memory-storage'),
+    database: process.env.DB_NAME || 'hamburger_rapid_db',
+    user: process.env.DB_USER || 'rapid_admin',
+    totalProducts: inMemoryProducts.length,
+    totalConsumers: inMemoryConsumers.length,
+    activeOrders: inMemoryOrders.filter(o => o.status !== 'entregado').length,
+    serverUptime: process.uptime(),
     error: lastDbError
   };
 }
@@ -624,5 +591,10 @@ module.exports = {
   addProduct,
   deleteProduct,
   resetProducts,
-  getDbStatus
+  getConsumersMetrics,
+  getOrders,
+  createOrder,
+  getDbStatus,
+  INITIAL_PRODUCTS,
+  INITIAL_CONSUMERS
 };
